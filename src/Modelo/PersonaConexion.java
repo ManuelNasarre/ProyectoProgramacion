@@ -5,10 +5,22 @@
  */
 package Modelo;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author Alumno
  */
 public class PersonaConexion {
+    
+    
+    
+    public ResultSet obtenerCategoria(Persona persona){
+        ResultSet rs = null;
+        String sentenciaSQL = "SELECT from persona";
+        
+        
+        return rs;
+    }
     
 }

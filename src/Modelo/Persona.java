@@ -13,7 +13,8 @@ public class Persona {
     
     
     private String nombre;
-    private String contrasenna;
+    private String categoria;
+    private String contrasenia;
     
     
     public Persona(){
@@ -25,7 +26,7 @@ public class Persona {
      * @return the nombre
      */
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     /**
@@ -38,14 +39,20 @@ public class Persona {
     /**
      * @return the contrasenna
      */
-    public String getContrasenna() {
-        return contrasenna;
+    public String getContrasenia() {
+        return this.contrasenia;
     }
 
     /**
      * @param contrasenna the contrasenna to set
      */
-    public void setContrasenna(String contrasenna) {
-        this.contrasenna = contrasenna;
+    public void setContrasenia(String contrasenna) {
+        this.contrasenia = contrasenna;
+    }
+    
+    
+    public String getCategoria(){
+        
+        return this.categoria;
     }
 }

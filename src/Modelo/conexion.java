@@ -14,12 +14,12 @@ import java.sql.*;
 public class conexion {
    
     //atributos de la conexion
-    String bd;
-    String usuario;
-    String contrasenia;
-    String servidor;
+    String bd = "baseprogramacion";
+    private String usuario= "user";
+    private String contrasenia= "1234";
+    private String servidor="jdbc:mysql://localhost/";
+    private Connection conexion;
     ResultSet rs;
-    Connection conexion;
     
     
     /*
@@ -29,12 +29,7 @@ public class conexion {
     *@param contrasenia - contraseña del usuario
     *@param servidor - nombre del servidor donde esta alojada la base de datos
     */
-    public conexion(String bd, String usuario, String contrasenia, String servidor) {
-
-        this.bd = bd;
-        this.usuario = usuario;
-        this.contrasenia = contrasenia;
-        this.servidor = servidor;
+    public conexion() {
 
     }
     /*
@@ -76,9 +71,9 @@ public class conexion {
     }
     
     
-    public conexion getConexion(){
+    public Connection getConexion(){
         
-        return this;
+        return conexion;
     }
 
 }
