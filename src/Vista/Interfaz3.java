@@ -5,7 +5,9 @@
  */
 package Vista;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.GridLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -20,103 +22,167 @@ import javax.swing.WindowConstants;
  * @author Alumno
  */
 public class Interfaz3 {
+
     JFrame frame;
     JPanel panel1;
-    JLabel nombre;
-    JTextField Tnombre;
-    JLabel telefono;
-    JTextField Ttelefono;
-    JLabel presi;
-    JComboBox Tpresi;
-    JLabel direc;
-    JComboBox Tdirec;
-    JButton btnaniadir;
-    JButton btncancelar;
     JPanel panel2;
-    JLabel equipo;
-    JComboBox Tequipo;
-    JButton btnaceptarEquipo;
     JPanel panel3;
-    JLabel direc2;
-    JComboBox Tdirec2;
-    JButton btnaceptarDirec;
     JPanel panel4;
-    JLabel nombreEquipo;
-    JTextField TnombreEquipo;
-    JLabel fecha;
-    //JCalendar Tfecha;
-    JLabel precio;
     JTabbedPane pestañas;
-    
-    public Interfaz3(){
+
+    public Interfaz3() {
         frame = new JFrame();
-        panel1= new JPanel();
-        panel2= new JPanel();
-        panel3= new JPanel();
-        panel4= new JPanel();
-        pestañas= new JTabbedPane();
+
+        //creamos la pestaña 1
+        panel1 = crearPestaña1();
+
+        //creamos la pestaña 2
+        panel2 = crearPestaña2();
+
+        //creamos la pestaña 3
+        panel3 = crearPestaña3();
+
+        //creamos la pestaña 4
+        panel4 = crearPestaña4();
+
+        //creamos el contenedor de las pestañas
+        pestañas = new JTabbedPane(2);
+
+        //creamos las imagenes de las pestañas
+        ImageIcon escudo = new ImageIcon("fotoEscudo.gif");
+        ImageIcon escudoTachado = new ImageIcon("fotoEscudoTachado.gif");
+        ImageIcon fotoTicket = new ImageIcon("fotoEntrada.gif");
+        ImageIcon fotoDirector = new ImageIcon("fotoDirector.gif");
+        //añadimos las pestañas al contenedor
+        pestañas.addTab("Alta equipo", escudo, panel1);
+        pestañas.addTab("Baja equipo", escudoTachado, panel2);
+        pestañas.addTab("Vender entrada",fotoTicket, panel3);
+        pestañas.addTab("Modificar director",fotoDirector, panel4);
         
-        panel1.setLayout(new GridLayout(5,2,5,5));
+        //añadimos el contenedor al frame
+        frame.add(pestañas);
+        
+        //modificamos el frame
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setSize(700, 300);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    /**
+     * Metodo que crea la pestaña del alta de equipo
+     *
+     * @return panel donde esta la vista de dar de alta.
+     */
+    public JPanel crearPestaña1() {
+
+        JLabel nombre;
+        JTextField Tnombre;
+        JLabel telefono;
+        JTextField Ttelefono;
+        JLabel presidente;
+        JComboBox Tpresidente;
+        JLabel director;
+        JComboBox Tdirector;
+        JButton btnaniadir;
+        JButton btncancelar;
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 2, 5, 5));
         nombre = new JLabel("Nombre");
         Tnombre = new JTextField(15);
         telefono = new JLabel("Telefono");
         Ttelefono = new JTextField(15);
-        presi = new JLabel("Presidente");
-        Tpresi=new JComboBox();
-        direc = new JLabel("Director de Marketing");
-        Tdirec=new JComboBox();
+        presidente = new JLabel("Presidente");
+        Tpresidente = new JComboBox();
+        director = new JLabel("Director de Marketing");
+        Tdirector = new JComboBox();
         btnaniadir = new JButton("Añadir");
         btncancelar = new JButton("Cancelar");
-        
-        panel1.add(nombre);
-        panel1.add(Tnombre);
-        panel1.add(telefono);
-        panel1.add(Ttelefono);
-        panel1.add(presi);
-        panel1.add(Tpresi);
-        panel1.add(direc);
-        panel1.add(Tdirec);
-        panel1.add(btnaniadir);
-        panel1.add(btncancelar);
-        
-        panel2.setLayout(new GridLayout(5,2,5,5));
+
+        panel.add(nombre);
+        panel.add(Tnombre);
+        panel.add(telefono);
+        panel.add(Ttelefono);
+        panel.add(presidente);
+        panel.add(Tpresidente);
+        panel.add(director);
+        panel.add(Tdirector);
+        panel.add(btnaniadir);
+        panel.add(btncancelar);
+
+        return panel;
+    }
+
+    /**
+     * Método que crea la pestaña de baja de equipo
+     *
+     * @return panel de la vista de dar de baja
+     */
+    public JPanel crearPestaña2() {
+
+        JLabel equipo;
+        JComboBox Tequipo;
+        JButton btnaceptarEquipo;
+
+        JPanel panel = new JPanel();
+
+        panel.setLayout(new GridLayout(5, 2, 5, 5));
         equipo = new JLabel("Elegir equipo: ");
         Tequipo = new JComboBox();
         btnaceptarEquipo = new JButton("Aceptar");
-        
-        panel2.add(equipo);
-        panel2.add(Tequipo);
-        panel2.add(btnaceptarEquipo);
-        
-        panel3.setLayout(new GridLayout(5,2,5,5));
+
+        panel.add(equipo);
+        panel.add(Tequipo);
+        panel.add(btnaceptarEquipo);
+
+        return panel;
+    }
+
+    /**
+     * Método que crea la pestaña de venta de entradas
+     *
+     * @return panel de la vista de vender entrada.
+     */
+    public JPanel crearPestaña3() {
+
+        JLabel nombreEquipo;
+        JComboBox TnombreEquipo;
+        JLabel fecha;
+        JDateChooser Tfecha;
+        JLabel precio;
+        JLabel Tprecio;
+        JPanel panel = new JPanel();
+
+        panel.setLayout(new GridLayout(5, 2, 5, 5));
         nombreEquipo = new JLabel("Nombre equipo");
-        TnombreEquipo = new JTextField(15);
+        TnombreEquipo = new JComboBox();
+        Tfecha = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
         fecha = new JLabel("Fecha");
-        
-        panel4.setLayout(new GridLayout(5,2,5,5));
-        direc2 = new JLabel("Elegir director: ");
-        Tdirec2 = new JComboBox();
-        btnaceptarDirec = new JButton("Aceptar");
-        
-        panel4.add(direc2);
-        panel4.add(Tdirec2);
-        panel4.add(btnaceptarDirec);
-        
-        
-        pestañas.addTab("Alta equipo", panel1);
-        pestañas.addTab("Baja equipo", panel2);
-        pestañas.addTab("Vender entrada", panel3);
-        pestañas.addTab("Modificar director", panel4);
-        
-        
-        
-        frame.add(pestañas);
-        
-        
-        
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        frame.setSize(600, 300);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        precio = new JLabel("Precio");
+        panel.add(nombreEquipo);
+        panel.add(TnombreEquipo);
+        panel.add(fecha);
+        panel.add(Tfecha);
+
+        return panel;
+    }
+
+    public JPanel crearPestaña4() {
+        JLabel director;
+        JComboBox Tdirector;
+        JButton btnaceptarDirector;
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 2, 5, 5));
+        director = new JLabel("Elegir director: ");
+        Tdirector = new JComboBox();
+        btnaceptarDirector = new JButton("Aceptar");
+
+        panel.add(director);
+        panel.add(Tdirector);
+        panel.add(btnaceptarDirector);
+
+        return panel;
     }
 }
