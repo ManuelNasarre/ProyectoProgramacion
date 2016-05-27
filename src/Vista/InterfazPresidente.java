@@ -21,7 +21,7 @@ import javax.swing.WindowConstants;
  *
  * @author Alumno
  */
-public class Interfaz3 {
+public class InterfazPresidente {
 
     JFrame frame;
     JPanel panel1;
@@ -30,7 +30,7 @@ public class Interfaz3 {
     JPanel panel4;
     JTabbedPane pestañas;
 
-    public Interfaz3() {
+    public InterfazPresidente() {
         frame = new JFrame();
 
         //creamos la pestaña 1

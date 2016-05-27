@@ -5,7 +5,7 @@
  */
 package Vista;
 
-import Modelo.conexion;
+import Modelo.Conexion;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,80 +23,94 @@ import javax.swing.WindowConstants;
  * @author Alumno
  */
 public class InterfazPrincipal {
-    JFrame frame;
-    JPanel panel;
-    JButton botonConectar;
-    JButton botonRegistrar;
-    JLabel nombre;
-    JLabel contrasenna;
-    JLabel pregunta;
-    JLabel blanco;
-    JTextField Tnombre;
-    JPasswordField Tcontrasenia;
-    String servidor = "jdbc:mysql://localhost/";
-    String bd = "BD";
-    String usuario = "user";
-    String contrasenia = "1234";
-    conexion db = new conexion();
+    private final JFrame FRAME;
+    private final JPanel PANEL;
+    private final JButton BOTON_CONECTAR;
+    private final JButton BOTON_REGISTRAR;
+    private final JLabel NOMBRE;
+    private final JLabel CONTRASENNA;
+    private final JLabel PREGUNTA;
+    private final JLabel BLANCO;
+    private final JTextField TNOMBRE;
+    private final JPasswordField TCONTRASENNA;
+    private final String SERVIDOR = "jdbc:mysql://localhost/";
+    private final String BD = "baseprogramacion";
+    private final String USUARIO = "user";
+    private final String CONTRASENIA = "1234";
+    private  Conexion db = new Conexion();
 
     public InterfazPrincipal() {
-        frame = new JFrame();
-        panel = new JPanel();
-        nombre = new JLabel("Nombre");
-        contrasenna = new JLabel("Contraseña");
-        Tnombre = new JTextField(15);
-        Tcontrasenia = new JPasswordField(15);
-        pregunta = new JLabel("           ¿No tienes cuenta?");
-        blanco = new JLabel("");
-        botonConectar = crearBoton("Conectarse");
-        botonRegistrar= crearBoton("Registrarse");
-        panel.setLayout(new GridLayout(4,2,5,5));
+        FRAME = new JFrame();
+        PANEL = new JPanel();
+        NOMBRE = new JLabel("Nombre");
+        CONTRASENNA = new JLabel("Contraseña");
+        TNOMBRE = new JTextField(15);
+        TCONTRASENNA = new JPasswordField(15);
+        PREGUNTA = new JLabel("           ¿No tienes cuenta?");
+        BLANCO = new JLabel("");
+        BOTON_CONECTAR = new JButton("Conectarse");
+        BOTON_REGISTRAR= new JButton("Registrarse");
+        PANEL.setLayout(new GridLayout(4,2,5,5));
         
-        pregunta.setForeground(java.awt.Color.red);
+        PREGUNTA.setForeground(java.awt.Color.red);
         
-        panel.add(nombre);
-        panel.add(Tnombre);
-        panel.add(contrasenna);
-        panel.add(Tcontrasenia);
-        panel.add(blanco);
-        panel.add(pregunta);
-        panel.add(botonConectar);
-        panel.add(botonRegistrar);
-        frame.add(panel);
+        PANEL.add(NOMBRE);
+        PANEL.add(TNOMBRE);
+        PANEL.add(CONTRASENNA);
+        PANEL.add(TCONTRASENNA);
+        PANEL.add(BLANCO);
+        PANEL.add(PREGUNTA);
+        PANEL.add(BOTON_CONECTAR);
+        PANEL.add(BOTON_REGISTRAR);
+        FRAME.add(PANEL);
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        FRAME.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        FRAME.pack();
+        FRAME.setLocationRelativeTo(null);
+        FRAME.setVisible(true);
     }
 
-    public void comportamiento(ActionEvent e) {
-        Object obj = e.getSource();
-        if (obj == botonConectar) {
-            /*if(){
-                Interfaz3 i3 = new Interfaz3();
-            }else{
-                Interfaz4 i4 = new Interfaz4();
-            }*/
-        }
-        else if(obj == botonRegistrar){
-            Interfaz2 i2= new Interfaz2();
-        }
+    
+    public void addCalcularListener(ActionListener escucharBoton){
+        BOTON_REGISTRAR.addActionListener(escucharBoton);
+        BOTON_CONECTAR.addActionListener(escucharBoton);
         
     }
-    public JButton crearBoton(String texto) {
-        JButton boton = new JButton(texto);
+    
+    
 
-        boton.addActionListener(
-                new ActionListener() {
+    /**
+     * @return the botonConectar
+     */
+    public JButton getBotonConectar() {
+        return BOTON_CONECTAR;
+    }
 
-                    @Override
-                    public void actionPerformed(ActionEvent e
-                    ) {
-                        comportamiento(e);
-                    }
-                }
-        );
-        return boton;
+    /**
+     * @return the botonRegistrar
+     */
+    public JButton getBotonRegistrar() {
+        return BOTON_REGISTRAR;
+    }
+
+    /**
+     * @return the Tnombre
+     */
+    public JTextField getTnombre() {
+        return TNOMBRE;
+    }
+
+    /**
+     * @return the Tcontrasenia
+     */
+    public JPasswordField getTcontrasenia() {
+        return TCONTRASENNA;
+    }
+
+    /**
+     * @return the FRAME
+     */
+    public JFrame getFRAME() {
+        return FRAME;
     }
 }

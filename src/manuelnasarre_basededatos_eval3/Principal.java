@@ -5,6 +5,8 @@
  */
 package manuelnasarre_basededatos_eval3;
 
+import Controlador.*;
+import Modelo.*;
 import Vista.*;
 
 /**
@@ -17,7 +19,14 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Conexion conection = new Conexion();
+        
+        
         InterfazPrincipal i = new InterfazPrincipal();
+        controladorInterfazPrincipal cip = new controladorInterfazPrincipal(i);
+        
+      
+        
     }
     
 }

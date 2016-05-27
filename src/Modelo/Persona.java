@@ -11,15 +11,29 @@ package Modelo;
  */
 public class Persona {
     
-    
+    private int id;
     private String nombre;
+    private String apellido;
     private String categoria;
     private String contrasenia;
     
     
-    public Persona(){
+    public Persona(String nombre,String apellido, String categoria,String contrasenia){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.categoria = categoria;
+        this.contrasenia = contrasenia;
         
         
+    }
+    /**
+     * Constructor de la clase persona para logear
+     * @param nombre nombre de la persona
+     * @param contrasenia contraseña de la persona
+     */
+    public Persona(String nombre, String contrasenia){
+        this.nombre = nombre;
+        this.contrasenia = contrasenia;
     }
 
     /**
@@ -54,5 +68,40 @@ public class Persona {
     public String getCategoria(){
         
         return this.categoria;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the apellido
+     */
+    public String getApellido() {
+        return apellido;
+    }
+
+    /**
+     * @param apellido the apellido to set
+     */
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    /**
+     * @param categoria the categoria to set
+     */
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }
