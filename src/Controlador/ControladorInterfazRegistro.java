@@ -44,97 +44,78 @@ public class ControladorInterfazRegistro {
             if (obj == ip.getBOTONCANCELAR()) {
 
             } else {
-                if (obj == ip.getBOTON_INFORMACION()) {
-                    InterfazInformacion ii = new InterfazInformacion();
-
-                } else {
-                    if (obj == ip.getBOTONREGISTRAR()) {
-                        if (!datosRellenos()) {
-                            JOptionPane.showMessageDialog(ip.getFRAME(), "no has rellenado todos los campos", "error de registro", JOptionPane.ERROR_MESSAGE);
+                if (obj == ip.getBOTONREGISTRAR()) {
+                    if (!datosRellenos()) {
+                        JOptionPane.showMessageDialog(ip.getFRAME(), "no has rellenado todos los campos", "error de registro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        if (!contraseniasIguales()) {
+                            JOptionPane.showMessageDialog(ip.getFRAME(), "las contraseñas no coinciden", "error de registro", JOptionPane.ERROR_MESSAGE);
                         } else {
-                            if (!contraseniasIguales()) {
-                                JOptionPane.showMessageDialog(ip.getFRAME(), "las contraseñas no coinciden", "error de registro", JOptionPane.ERROR_MESSAGE);
+                            if (!contraseniaCorrecta()) {
+                                JOptionPane.showMessageDialog(ip.getFRAME(), "las contraseñas no cumple el patron", "error de registro", JOptionPane.ERROR_MESSAGE);
+
                             } else {
-                                if (!contraseniaCorrecta()) {
-                                    JOptionPane.showMessageDialog(ip.getFRAME(), "las contraseñas no cumple el patron", "error de registro", JOptionPane.ERROR_MESSAGE);
-
-                                } else {
-                                    if (!datosCorrectos()) {
-                                        String nombre = ip.getTNOMBRE().getText();
-                                        String apellido = ip.getTAPELLIDO().getText();
-                                        String pass = new String(ip.getTCONTRASENIA().getPassword());
-                                        String categoria = String.valueOf(ip.getTCATEGORIA().getSelectedItem());
-                                        Persona persona = new Persona(nombre, apellido, categoria, pass);
-                                        PersonaConexion.insertarPersona(persona);
-
-                                    }
+                                if (!datosCorrectos()) {
 
                                 }
+
                             }
                         }
-
                     }
+                    String nombre = ip.getTNOMBRE().getText();
+                    String apellido = ip.getTAPELLIDO().getText();
+                    String pass = new String(ip.getTCONTRASENIA().getPassword());
+                    String categoria = String.valueOf(ip.getTCATEGORIA().getSelectedItem());
+                    Persona persona = new Persona(nombre, apellido, categoria, pass);
+                    PersonaConexion.insertarPersona(persona);
                 }
-
             }
 
-        }
-
-        public boolean datosRellenos() {
-            boolean correcto = false;
-            String nombre = ip.getTNOMBRE().getText();
-            String apellido = ip.getTAPELLIDO().getText();
-            String pass = new String(ip.getTCONTRASENIA().getPassword());
-            String categoria = String.valueOf(ip.getTCATEGORIA().getSelectedItem());
-            if (nombre.equalsIgnoreCase("") || apellido.equalsIgnoreCase("")
-                    || pass.equalsIgnoreCase("") || categoria.equalsIgnoreCase("")) {
-                correcto = false;
-            } else {
-                correcto = true;
-            }
-            return correcto;
-
-        }
-
-        public boolean contraseniasIguales() {
-            boolean iguales = false;
-            String contrasenia1 = new String(ip.getTCONTRASENIA().getPassword());
-            String contrasenia2 = new String(ip.getTCONTRASENIA2().getPassword());
-            if (contrasenia1.equalsIgnoreCase(contrasenia2)) {
-                iguales = true;
-            }
-            return iguales;
-        }
-
-        public boolean contraseniaCorrecta() {
-            boolean correcta = false;
-            String contrasenia = new String(ip.getTCONTRASENIA().getPassword());
-            String expresionRegular = "^[A-Z]+[a-z]{2}\\w*\\d{2,}\\$";
-            Pattern patron = Pattern.compile(expresionRegular);
-            Matcher mat = patron.matcher(contrasenia);
-            if (mat.matches() && contrasenia.length() >= 8) {
-                correcta = true;
-            }
-            return correcta;
-        }
-
-        public boolean datosCorrectos() {
-            boolean correctos = false;
-            String nombre = ip.getTNOMBRE().getText();
-            String apellido = ip.getTAPELLIDO().getText();
-            String expresionNombre = "\\w{8,}";
-            Pattern patron = Pattern.compile(expresionNombre);
-            Matcher mat = patron.matcher(nombre);
-            String expresionApellido = "\\w{8,}";
-            Pattern patron2 = Pattern.compile(expresionApellido);
-            Matcher mat2 = patron.matcher(apellido);
-
-            if (mat.matches() && mat2.matches()) {
-                correctos = true;
-            }
-
-            return correctos;
         }
 
     }
+
+    public boolean datosRellenos() {
+        boolean correcto = false;
+        String nombre = ip.getTNOMBRE().getText();
+        String apellido = ip.getTAPELLIDO().getText();
+        String pass = new String(ip.getTCONTRASENIA().getPassword());
+        String categoria = String.valueOf(ip.getTCATEGORIA().getSelectedItem());
+        if (nombre.equalsIgnoreCase("") || apellido.equalsIgnoreCase("")
+                || pass.equalsIgnoreCase("") || categoria.equalsIgnoreCase("")) {
+            correcto = false;
+        } else {
+            correcto = true;
+        }
+        return correcto;
+
+    }
+
+    public boolean contraseniasIguales() {
+        boolean iguales = false;
+        String contrasenia1 = new String(ip.getTCONTRASENIA().getPassword());
+        String contrasenia2 = new String(ip.getTCONTRASENIA2().getPassword());
+        if (contrasenia1.equalsIgnoreCase(contrasenia2)) {
+            iguales = true;
+        }
+        return iguales;
+    }
+
+    public boolean contraseniaCorrecta() {
+        boolean correcta = false;
+        String contrasenia = new String(ip.getTCONTRASENIA().getPassword());
+        String expresionRegular = "[^[A-Z]{1,2}[a-z]{2}\\w{0,}\\d{2,}[$]$]{8,}";
+        Pattern patron = Pattern.compile(expresionRegular);
+        Matcher mat = patron.matcher(contrasenia);
+        if (mat.matches()) {
+            correcta = true;
+        }
+        return correcta;
+    }
+
+    public boolean datosCorrectos() {
+        boolean correctos = false;
+        return correctos;
+    }
+
 }

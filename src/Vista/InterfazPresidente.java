@@ -5,12 +5,8 @@
  */
 package Vista;
 
-import Modelo.PersonaConexion;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import com.toedter.calendar.JDateChooser;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,36 +29,21 @@ public class InterfazPresidente {
     JPanel panel3;
     JPanel panel4;
     JTabbedPane pestañas;
-    //nombre del equipo para dar de alta.
-    private JTextField Tnombre;
-    //telefono del equipo para dar de alta.
-    private JTextField Ttelefono;
-    //nombre del presidente que ha elegido para el equipo.
-    private JComboBox TpresidenteAlta;
-    //nombre del director que ha elegido para el equipo.
-    private JComboBox Tdirector;
-    //precio de entrada del equipo
-    private JTextField tprecio;
-    private JButton btnaniadir = new JButton("Añadir");
-    private JButton btncancelar = new JButton("Cancelar");
-    private JButton btnaceptarEquipo = new JButton("Aceptar");
-    private JButton btnVender = new JButton("Vender");
-    private JButton btnaceptarDirector = new JButton("Aceptar");
 
     public InterfazPresidente() {
         frame = new JFrame();
 
         //creamos la pestaña 1
-        panel1 = crearPestañaAltaEquipo();
+        panel1 = crearPestaña1();
 
         //creamos la pestaña 2
-        panel2 = crearPestañaBajaEquipo();
+        panel2 = crearPestaña2();
 
         //creamos la pestaña 3
-        panel3 = crearPestañaVentaEntrada();
+        panel3 = crearPestaña3();
 
         //creamos la pestaña 4
-        panel4 = crearPestañaModificarDirector();
+        panel4 = crearPestaña4();
 
         //creamos el contenedor de las pestañas
         pestañas = new JTabbedPane(2);
@@ -72,32 +53,20 @@ public class InterfazPresidente {
         ImageIcon escudoTachado = new ImageIcon("fotoEscudoTachado.gif");
         ImageIcon fotoTicket = new ImageIcon("fotoEntrada.gif");
         ImageIcon fotoDirector = new ImageIcon("fotoDirector.gif");
-
         //añadimos las pestañas al contenedor
         pestañas.addTab("Alta equipo", escudo, panel1);
         pestañas.addTab("Baja equipo", escudoTachado, panel2);
-        pestañas.addTab("Vender entrada", fotoTicket, panel3);
-        pestañas.addTab("Modificar director", fotoDirector, panel4);
-
+        pestañas.addTab("Vender entrada",fotoTicket, panel3);
+        pestañas.addTab("Modificar director",fotoDirector, panel4);
+        
         //añadimos el contenedor al frame
         frame.add(pestañas);
-
+        
         //modificamos el frame
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-
         frame.setSize(700, 300);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
-
-    public void addCalcularListener(ActionListener escucharBoton) {
-
-        getBtnaniadir().addActionListener(escucharBoton);
-        getBtncancelar().addActionListener(escucharBoton);
-        getBtnaceptarEquipo().addActionListener(escucharBoton);
-        getBtnVender().addActionListener(escucharBoton);
-        getBtnaceptarDirector().addActionListener(escucharBoton);
-
     }
 
     /**
@@ -105,43 +74,42 @@ public class InterfazPresidente {
      *
      * @return panel donde esta la vista de dar de alta.
      */
-    public JPanel crearPestañaAltaEquipo() {
-
-        String[] nombrePresidentes = PersonaConexion.obtenerPresidentes();
-        String[] nombreDirectores = PersonaConexion.obtenerDirectores();
+    public JPanel crearPestaña1() {
 
         JLabel nombre;
+        JTextField Tnombre;
         JLabel telefono;
+        JTextField Ttelefono;
         JLabel presidente;
+        JComboBox Tpresidente;
         JLabel director;
-        JLabel precio;
-        
+        JComboBox Tdirector;
+        JButton btnaniadir;
+        JButton btncancelar;
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(6, 2, 5, 5));
+        panel.setLayout(new GridLayout(5, 2, 5, 5));
         nombre = new JLabel("Nombre");
         Tnombre = new JTextField(15);
         telefono = new JLabel("Telefono");
         Ttelefono = new JTextField(15);
         presidente = new JLabel("Presidente");
-        TpresidenteAlta = new JComboBox(nombrePresidentes);
+        Tpresidente = new JComboBox();
         director = new JLabel("Director de Marketing");
-        Tdirector = new JComboBox(nombreDirectores);
-        precio = new JLabel("precio Entrada");
-        tprecio = new JTextField(15);
+        Tdirector = new JComboBox();
+        btnaniadir = new JButton("Añadir");
+        btncancelar = new JButton("Cancelar");
 
         panel.add(nombre);
-        panel.add(getTnombre());
+        panel.add(Tnombre);
         panel.add(telefono);
-        panel.add(getTtelefono());
+        panel.add(Ttelefono);
         panel.add(presidente);
-        panel.add(TpresidenteAlta);
+        panel.add(Tpresidente);
         panel.add(director);
-        panel.add(getTdirector());
-        panel.add(precio);
-        panel.add(getTprecio());
-        panel.add(getBtnaniadir());
-        panel.add(getBtncancelar());
+        panel.add(Tdirector);
+        panel.add(btnaniadir);
+        panel.add(btncancelar);
 
         return panel;
     }
@@ -151,20 +119,22 @@ public class InterfazPresidente {
      *
      * @return panel de la vista de dar de baja
      */
-    public JPanel crearPestañaBajaEquipo() {
+    public JPanel crearPestaña2() {
 
         JLabel equipo;
-        String [] nombreEquipos = PersonaConexion.obtenerEquipos();
         JComboBox Tequipo;
+        JButton btnaceptarEquipo;
+
         JPanel panel = new JPanel();
 
         panel.setLayout(new GridLayout(5, 2, 5, 5));
         equipo = new JLabel("Elegir equipo: ");
-        Tequipo = new JComboBox(nombreEquipos);
+        Tequipo = new JComboBox();
+        btnaceptarEquipo = new JButton("Aceptar");
 
         panel.add(equipo);
         panel.add(Tequipo);
-        panel.add(getBtnaceptarEquipo());
+        panel.add(btnaceptarEquipo);
 
         return panel;
     }
@@ -174,10 +144,9 @@ public class InterfazPresidente {
      *
      * @return panel de la vista de vender entrada.
      */
-    public JPanel crearPestañaVentaEntrada() {
+    public JPanel crearPestaña3() {
 
         JLabel nombreEquipo;
-        String [] nombreEquipos = PersonaConexion.obtenerEquipos();
         JComboBox TnombreEquipo;
         JLabel fecha;
         JDateChooser Tfecha;
@@ -187,115 +156,33 @@ public class InterfazPresidente {
 
         panel.setLayout(new GridLayout(5, 2, 5, 5));
         nombreEquipo = new JLabel("Nombre equipo");
-        TnombreEquipo = new JComboBox(nombreEquipos);
+        TnombreEquipo = new JComboBox();
         Tfecha = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
         fecha = new JLabel("Fecha");
         precio = new JLabel("Precio");
-        Tprecio = new JLabel("");
         panel.add(nombreEquipo);
         panel.add(TnombreEquipo);
         panel.add(fecha);
         panel.add(Tfecha);
-        panel.add(precio);
-        String nombreEquipoPrecio = String.valueOf(TnombreEquipo.getSelectedItem());
-        String valor = String.valueOf(PersonaConexion.obtenerPrecio(nombreEquipoPrecio));
-        Tprecio.setText(valor + "€");
-        panel.add(Tprecio);
 
         return panel;
     }
 
-    public JPanel crearPestañaModificarDirector() {
+    public JPanel crearPestaña4() {
         JLabel director;
-        JLabel equipo;
-        String [] nombreEquipos = PersonaConexion.obtenerEquipos();
-        JComboBox cbEquipo;
-        String [] nombreDirectores = PersonaConexion.obtenerDirectores();
         JComboBox Tdirector;
+        JButton btnaceptarDirector;
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2, 5, 5));
-        equipo = new JLabel("Elegir equipo");
-        cbEquipo = new JComboBox(nombreEquipos);
+        panel.setLayout(new GridLayout(5, 2, 5, 5));
         director = new JLabel("Elegir director: ");
-        Tdirector = new JComboBox(nombreDirectores);
-        
-        panel.add(equipo);
-        panel.add(cbEquipo);
+        Tdirector = new JComboBox();
+        btnaceptarDirector = new JButton("Aceptar");
+
         panel.add(director);
         panel.add(Tdirector);
-        panel.add(getBtnaceptarDirector());
+        panel.add(btnaceptarDirector);
 
         return panel;
-    }
-
-    /**
-     * @return the btnaniadir
-     */
-    public JButton getBtnaniadir() {
-        return btnaniadir;
-    }
-
-    /**
-     * @return the btncancelar
-     */
-    public JButton getBtncancelar() {
-        return btncancelar;
-    }
-
-    /**
-     * @return the btnaceptarEquipo
-     */
-    public JButton getBtnaceptarEquipo() {
-        return this.btnaceptarEquipo;
-    }
-
-    /**
-     * @return the btnVender
-     */
-    public JButton getBtnVender() {
-        return this.btnVender;
-    }
-
-    /**
-     * @return the btnaceptarDirector
-     */
-    public JButton getBtnaceptarDirector() {
-        return this.btnaceptarDirector;
-    }
-
-    /**
-     * @return the Tnombre
-     */
-    public JTextField getTnombre() {
-        return this.Tnombre;
-    }
-
-    /**
-     * @return the Ttelefono
-     */
-    public JTextField getTtelefono() {
-        return this.Ttelefono;
-    }
-
-    /**
-     * @return the Tpresidente
-     */
-    public JComboBox getTpresidenteAlta() {
-        return this.TpresidenteAlta;
-    }
-
-    /**
-     * @return the Tdirector
-     */
-    public JComboBox getTdirector() {
-        return this.Tdirector;
-    }
-
-    /**
-     * @return the tprecio
-     */
-    public JTextField getTprecio() {
-        return this.tprecio;
     }
 }
