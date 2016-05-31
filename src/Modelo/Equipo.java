@@ -13,15 +13,17 @@ package Modelo;
 public class Equipo {
     private int id_equipo;
     private String nombre;
-    private String telefono;
+    private int telefono;
     private int directorMarketing;
     private int presidente;
+    private float precio;
     
-    public Equipo(String n,String t,int id,int ip){
+    public Equipo(String n,int t,int id,int ip,float p){
         this.nombre=n;
         this.telefono=t;
         this.directorMarketing=id;
         this.presidente=ip;
+        this.precio = p;
     }
 
     /**
@@ -55,14 +57,14 @@ public class Equipo {
     /**
      * @return the telefono
      */
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
     /**
      * @param telefono the telefono to set
      */
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
@@ -92,6 +94,20 @@ public class Equipo {
      */
     public void setPresidente(int presidente) {
         this.presidente = presidente;
+    }
+
+    /**
+     * @return the precio
+     */
+    public float getPrecio() {
+        return precio;
+    }
+
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(float precio) {
+        this.precio = precio;
     }
 }
 

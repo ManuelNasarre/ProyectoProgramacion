@@ -17,6 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import Modelo.*;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -30,8 +31,10 @@ public class InterfazRegistro {
 
     private final JFrame FRAME;
     private final JPanel PANEL;
+    private final JPanel PANEL_BOTONES;
     private final JButton BOTON_CANCELAR;
     private final JButton BOTON_REGISTRAR;
+    private final JButton BOTON_INFORMACION;
     private final JLabel NOMBRE;
     private final JLabel APELLIDO;
     private final JLabel CONTRASENNA;
@@ -55,6 +58,7 @@ public class InterfazRegistro {
         TCATEGORIA = new JComboBox(getCategorias());
         FRAME = new JFrame();
         PANEL = new JPanel();
+        PANEL_BOTONES = new JPanel();
         NOMBRE = new JLabel("Nombre");
         APELLIDO = new JLabel("Apellido");
         CATEGORIA = new JLabel("Categoria");
@@ -62,11 +66,15 @@ public class InterfazRegistro {
         CONTRASENNA2 = new JLabel("Confirmar contraseña");
         TNOMBRE = new JTextField(15);
         TAPELLIDO = new JTextField(15);
+        ImageIcon informacion = new ImageIcon("informacion.gif");
         TCONTRASENIA = new JPasswordField(15);
+        BOTON_INFORMACION = new JButton(informacion);
         TCONTRASENIA2 = new JPasswordField(15);
         BOTON_CANCELAR = new JButton("Cancelar");
         BOTON_REGISTRAR = new JButton("Registrar");
+        FRAME.setLayout(new GridLayout(2, 1));
         PANEL.setLayout(new GridLayout(6, 2, 5, 5));
+        PANEL_BOTONES.setLayout(new GridLayout());
 
         PANEL.add(NOMBRE);
         PANEL.add(TNOMBRE);
@@ -78,9 +86,12 @@ public class InterfazRegistro {
         PANEL.add(TCONTRASENIA);
         PANEL.add(CONTRASENNA2);
         PANEL.add(TCONTRASENIA2);
-        PANEL.add(BOTON_REGISTRAR);
-        PANEL.add(BOTON_CANCELAR);
+        BOTON_REGISTRAR.setSize(10,10);
+        PANEL_BOTONES.add(BOTON_REGISTRAR);
+        PANEL_BOTONES.add(BOTON_CANCELAR);
+        PANEL_BOTONES.add(BOTON_INFORMACION);
         FRAME.add(PANEL);
+        FRAME.add(PANEL_BOTONES);
 
         FRAME.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         FRAME.pack();
@@ -91,6 +102,7 @@ public class InterfazRegistro {
     public void addCalcularListener(ActionListener escucharBoton) {
         getBOTONREGISTRAR().addActionListener(escucharBoton);
         getBOTONCANCELAR().addActionListener(escucharBoton);
+        getBOTON_INFORMACION().addActionListener(escucharBoton);
 
     }
 
@@ -155,5 +167,12 @@ public class InterfazRegistro {
      */
     public JPasswordField getTCONTRASENIA2() {
         return TCONTRASENIA2;
+    }
+
+    /**
+     * @return the BOTON_INFORMACION
+     */
+    public JButton getBOTON_INFORMACION() {
+        return BOTON_INFORMACION;
     }
 }
