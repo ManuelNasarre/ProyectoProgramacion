@@ -16,12 +16,14 @@ public class Equipo {
     private String telefono;
     private int directorMarketing;
     private int presidente;
+    private int precio;
     
-    public Equipo(String n,String t,int id,int ip){
+    public Equipo(String n,String t,int id,int ip, int p){
         this.nombre=n;
         this.telefono=t;
         this.directorMarketing=id;
         this.presidente=ip;
+        this.precio = p;
     }
 
     /**
@@ -92,6 +94,20 @@ public class Equipo {
      */
     public void setPresidente(int presidente) {
         this.presidente = presidente;
+    }
+
+    /**
+     * @return the precio
+     */
+    public int getPrecio() {
+        return precio;
+    }
+
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
 }
 
