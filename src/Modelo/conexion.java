@@ -14,7 +14,7 @@ import java.sql.*;
 public class conexion {
    
     //atributos de la conexion
-    String bd = "baseprogramacion";
+    String bd = "baseproyecto";
     private String usuario= "user";
     private String contrasenia= "1234";
     private String servidor="jdbc:mysql://localhost/";
@@ -59,7 +59,7 @@ public class conexion {
         boolean estado = false;
 
         try {
-            conexion.close();
+            getConexion().close();
             estado = true;
 
         } catch (SQLException se) {
@@ -71,7 +71,7 @@ public class conexion {
     }
     
     
-    public Connection getConexion(){
+    public  Connection getConexion(){
         
         return conexion;
     }

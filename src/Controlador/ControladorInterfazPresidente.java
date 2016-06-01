@@ -9,6 +9,7 @@ import Vista.*;
 import Modelo.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -50,15 +51,44 @@ public class ControladorInterfazPresidente {
                 Equipo equipo = new Equipo(nombre, telefono, director, presidente, precio);
 
                 PersonaConexion.insertarEquipo(equipo);
+                ip.getCOMBO_EQUIPOB().addItem(PersonaConexion.obtenerEquipos()[PersonaConexion.obtenerEquipos().length - 1]);
+                ip.getCOMBO_EQUIPO_VENTAS().addItem(PersonaConexion.obtenerEquipos()[PersonaConexion.obtenerEquipos().length - 1]);
+                ip.getCOMBO_MODIFICAR_EQUIPO().addItem(PersonaConexion.obtenerEquipos()[PersonaConexion.obtenerEquipos().length - 1]);
+                JOptionPane.showMessageDialog(ip.getFRAME(), "equipo introducido correctamente", "informacion de alta", JOptionPane.INFORMATION_MESSAGE);
 
-            }else{
-                if(obj == ip.getBOTON_CANCELAR()){
-                    
+            } else {
+                if (obj == ip.getBOTON_CANCELAR()) {
+
                     ip.getTEXT_NOMBRE().setText("");
                     ip.getTEXT_TELEFONO().setText("");
                     ip.getTEXT_PRECIO().setText("");
+                } else {
+                    if (obj == ip.getBOTON_BAJA_EQUIPO()) {
+
+                        String nombreEquipo = String.valueOf(ip.getCOMBO_EQUIPOB().getSelectedItem());
+
+                        PersonaConexion.eliminarEquipo(nombreEquipo);
+                        ip.getCOMBO_EQUIPO_VENTAS().removeItem(ip.getCOMBO_EQUIPOB().getSelectedItem());
+                        ip.getCOMBO_MODIFICAR_EQUIPO().removeItem(ip.getCOMBO_EQUIPOB().getSelectedItem());
+                        ip.getCOMBO_EQUIPOB().removeItem(ip.getCOMBO_EQUIPOB().getSelectedItem());
+                        JOptionPane.showMessageDialog(ip.getFRAME(), "equipo eliminado correctamente", "informacion de eliminacion", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+
+                        if (obj == ip.getBOTON_MODIFICAR_DIRECTOR()) {
+
+                            String nombreDirector = String.valueOf(ip.getCOMBO_MODIFICAR_DIRECTOR().getSelectedItem());
+                            String nombreEquipo = String.valueOf(ip.getCOMBO_MODIFICAR_EQUIPO().getSelectedItem());
+
+                            PersonaConexion.modificarDirector(nombreDirector, "Director Comercial", nombreEquipo);
+                            JOptionPane.showMessageDialog(ip.getFRAME(), "director modificado correctamente", "informacion de modificación", JOptionPane.INFORMATION_MESSAGE);
+
+                        } else {
+
+                        }
+                    }
+
                 }
-                
+
             }
 
         }

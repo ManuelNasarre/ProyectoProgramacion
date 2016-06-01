@@ -222,7 +222,12 @@ public class PersonaConexion {
 
     }
 
-    public static void eliminarEquipo(Equipo equipo) {
+    /**
+     * Metodo que elimina un equipo.
+     *
+     * @param nombre del equipo que vamos a eliminar
+     */
+    public static void eliminarEquipo(String nombre) {
 
         CallableStatement cs;
         conection.abrirConexion();
@@ -230,7 +235,7 @@ public class PersonaConexion {
         try {
 
             cs = conection.getConexion().prepareCall("{call eliminarEquipo(?)}");
-            cs.setString(1, equipo.getNombre());
+            cs.setString(1, nombre);
             cs.execute();
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
@@ -238,21 +243,22 @@ public class PersonaConexion {
         conection.cerraConexion();
     }
 
-    public static void modificarDirector(Persona persona, Equipo equipo) {
+    public static void modificarDirector(String nombre, String categoria, String nombreEquipo) {
 
         CallableStatement cs;
-        conection.abrirConexion();
-        int idDirector = PersonaConexion.obtenerIdPersona(persona);
 
+        int idDirector = PersonaConexion.obtenerId(nombre, categoria);
+        conection.abrirConexion();
         try {
 
             cs = conection.getConexion().prepareCall("{call modificarDirector(?,?)}");
             cs.setInt(1, idDirector);
-            cs.setString(2, equipo.getNombre());
+            cs.setString(2, nombreEquipo);
             cs.execute();
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }
+
         conection.cerraConexion();
 
     }

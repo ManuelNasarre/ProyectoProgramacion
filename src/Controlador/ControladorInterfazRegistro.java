@@ -108,10 +108,10 @@ public class ControladorInterfazRegistro {
     public boolean contraseniaCorrecta() {
         boolean correcta = false;
         String contrasenia = new String(ip.getTCONTRASENIA().getPassword());
-        String expresionRegular = "[^[A-Z]{1,2}[a-z]{2}\\w{0,}\\d{2,}[$]$]{8,}";
+        String expresionRegular = "[A-Z]+[a-z]{2,}\\w*\\d{2,}\\$";
         Pattern patron = Pattern.compile(expresionRegular);
         Matcher mat = patron.matcher(contrasenia);
-        if (mat.matches()) {
+        if (mat.matches() && contrasenia.length()>=8) {
             correcta = true;
         }
         return correcta;
@@ -119,8 +119,8 @@ public class ControladorInterfazRegistro {
 
     public boolean datosCorrectos() {
         boolean correctos = false;
-        String expresionNombre = "\\w{8,}";
-        String expresionApellido = "\\w{8,}";
+        String expresionNombre = "\\w*";
+        String expresionApellido = "\\w*";
         String nombre = ip.getTNOMBRE().getText();
         String apellido = ip.getTAPELLIDO().getText();
 
