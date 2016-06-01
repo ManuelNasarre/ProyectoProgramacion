@@ -22,31 +22,58 @@ import javax.swing.WindowConstants;
  * @author Alumno
  */
 public class InterfazPresidente {
+    
+    //componenetes principales.
+    private final JFrame FRAME;
+    private final JPanel PANEL_ALTA;
+    private final JPanel PANEL_BAJA;
+    private final JPanel PANEL_VENTA;
+    private final JPanel PANEL_MODIFICAR;
+    private final JTabbedPane PESTANNAS;
+    
+    
+    //componentes de alta de equipo
+    private JButton BOTON_ANIADIR;
+    private JButton BOTON_CANCELAR;
+    private JComboBox COMBO_DIRECTOR;
+    private JComboBox COMBO_PRESIDENTE;
+    private JTextField TEXT_NOMBRE;
+    private JTextField TEXT_TELEFONO;
 
-    JFrame frame;
-    JPanel panel1;
-    JPanel panel2;
-    JPanel panel3;
-    JPanel panel4;
-    JTabbedPane pestañas;
+    //componentes de baja de equipo
+    private JComboBox COMBO_EQUIPOB;
+    private JButton BOTON_BAJA_EQUIPO;
+    
+    //componentes venta de entradas
+    private JComboBox COMBO_EQUIPO_VENTAS;
+    private JDateChooser FECHA;
+    private JLabel PRECIO;
+    
+    //componentes de modificar director
+    private JComboBox COMBO_MODIFICAR_EQUIPO;
+    private JComboBox COMBO_MODIFICAR_DIRECTOR;
+    private JButton BOTON_MODIFICAR_DIRECTOR;
 
+    /**
+     * Constructor de la interfaz.
+     */
     public InterfazPresidente() {
-        frame = new JFrame();
+        FRAME = new JFrame();
 
         //creamos la pestaña 1
-        panel1 = crearPestaña1();
+        PANEL_ALTA = crearPestañaAltaEquipo();
 
         //creamos la pestaña 2
-        panel2 = crearPestaña2();
+        PANEL_BAJA = crearPestañaBajaEquipo();
 
         //creamos la pestaña 3
-        panel3 = crearPestaña3();
+        PANEL_VENTA = crearPestañaVenta();
 
         //creamos la pestaña 4
-        panel4 = crearPestaña4();
+        PANEL_MODIFICAR = crearPestañaModificarDirector();
 
         //creamos el contenedor de las pestañas
-        pestañas = new JTabbedPane(2);
+        PESTANNAS = new JTabbedPane(2);
 
         //creamos las imagenes de las pestañas
         ImageIcon escudo = new ImageIcon("fotoEscudo.gif");
@@ -54,19 +81,19 @@ public class InterfazPresidente {
         ImageIcon fotoTicket = new ImageIcon("fotoEntrada.gif");
         ImageIcon fotoDirector = new ImageIcon("fotoDirector.gif");
         //añadimos las pestañas al contenedor
-        pestañas.addTab("Alta equipo", escudo, panel1);
-        pestañas.addTab("Baja equipo", escudoTachado, panel2);
-        pestañas.addTab("Vender entrada",fotoTicket, panel3);
-        pestañas.addTab("Modificar director",fotoDirector, panel4);
-        
+        PESTANNAS.addTab("Alta equipo", escudo, PANEL_ALTA);
+        PESTANNAS.addTab("Baja equipo", escudoTachado, PANEL_BAJA);
+        PESTANNAS.addTab("Vender entrada", fotoTicket, PANEL_VENTA);
+        PESTANNAS.addTab("Modificar director", fotoDirector, PANEL_MODIFICAR);
+
         //añadimos el contenedor al frame
-        frame.add(pestañas);
-        
+        FRAME.add(PESTANNAS);
+
         //modificamos el frame
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        frame.setSize(700, 300);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        FRAME.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        FRAME.setSize(700, 300);
+        FRAME.setLocationRelativeTo(null);
+        FRAME.setVisible(true);
     }
 
     /**
@@ -74,42 +101,36 @@ public class InterfazPresidente {
      *
      * @return panel donde esta la vista de dar de alta.
      */
-    public JPanel crearPestaña1() {
+    public JPanel crearPestañaAltaEquipo() {
 
         JLabel nombre;
-        JTextField Tnombre;
         JLabel telefono;
-        JTextField Ttelefono;
         JLabel presidente;
-        JComboBox Tpresidente;
         JLabel director;
-        JComboBox Tdirector;
-        JButton btnaniadir;
-        JButton btncancelar;
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2, 5, 5));
         nombre = new JLabel("Nombre");
-        Tnombre = new JTextField(15);
+        TEXT_NOMBRE = new JTextField(15);
         telefono = new JLabel("Telefono");
-        Ttelefono = new JTextField(15);
+        TEXT_TELEFONO = new JTextField(15);
         presidente = new JLabel("Presidente");
-        Tpresidente = new JComboBox();
+        COMBO_PRESIDENTE = new JComboBox();
         director = new JLabel("Director de Marketing");
-        Tdirector = new JComboBox();
-        btnaniadir = new JButton("Añadir");
-        btncancelar = new JButton("Cancelar");
+        COMBO_DIRECTOR = new JComboBox();
+        BOTON_ANIADIR = new JButton("Añadir");
+        BOTON_CANCELAR = new JButton("Cancelar");
 
         panel.add(nombre);
-        panel.add(Tnombre);
+        panel.add(TEXT_NOMBRE);
         panel.add(telefono);
-        panel.add(Ttelefono);
+        panel.add(TEXT_TELEFONO);
         panel.add(presidente);
-        panel.add(Tpresidente);
+        panel.add(COMBO_PRESIDENTE);
         panel.add(director);
-        panel.add(Tdirector);
-        panel.add(btnaniadir);
-        panel.add(btncancelar);
+        panel.add(COMBO_DIRECTOR);
+        panel.add(BOTON_ANIADIR);
+        panel.add(BOTON_CANCELAR);
 
         return panel;
     }
@@ -119,22 +140,19 @@ public class InterfazPresidente {
      *
      * @return panel de la vista de dar de baja
      */
-    public JPanel crearPestaña2() {
+    public JPanel crearPestañaBajaEquipo() {
 
         JLabel equipo;
-        JComboBox Tequipo;
-        JButton btnaceptarEquipo;
-
         JPanel panel = new JPanel();
 
         panel.setLayout(new GridLayout(5, 2, 5, 5));
         equipo = new JLabel("Elegir equipo: ");
-        Tequipo = new JComboBox();
-        btnaceptarEquipo = new JButton("Aceptar");
+        COMBO_EQUIPOB = new JComboBox();
+        BOTON_BAJA_EQUIPO = new JButton("Aceptar");
 
         panel.add(equipo);
-        panel.add(Tequipo);
-        panel.add(btnaceptarEquipo);
+        panel.add(COMBO_EQUIPOB);
+        panel.add(BOTON_BAJA_EQUIPO);
 
         return panel;
     }
@@ -144,44 +162,49 @@ public class InterfazPresidente {
      *
      * @return panel de la vista de vender entrada.
      */
-    public JPanel crearPestaña3() {
+    public JPanel crearPestañaVenta() {
 
         JLabel nombreEquipo;
-        JComboBox TnombreEquipo;
         JLabel fecha;
-        JDateChooser Tfecha;
         JLabel precio;
-        JLabel Tprecio;
+        
         JPanel panel = new JPanel();
 
         panel.setLayout(new GridLayout(5, 2, 5, 5));
         nombreEquipo = new JLabel("Nombre equipo");
-        TnombreEquipo = new JComboBox();
-        Tfecha = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
+        COMBO_EQUIPO_VENTAS = new JComboBox();
+        FECHA = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
         fecha = new JLabel("Fecha");
         precio = new JLabel("Precio");
         panel.add(nombreEquipo);
-        panel.add(TnombreEquipo);
+        panel.add(COMBO_EQUIPO_VENTAS);
         panel.add(fecha);
-        panel.add(Tfecha);
+        panel.add(FECHA);
 
         return panel;
     }
-
-    public JPanel crearPestaña4() {
-        JLabel director;
-        JComboBox Tdirector;
-        JButton btnaceptarDirector;
+    /**
+     * Metodo que crea la pestaña de modificar director.
+     * @return panel de modificacion de director
+     */
+    public JPanel crearPestañaModificarDirector() {
+        JLabel director;       
+        JLabel equipo;
+        String [] nombreDirectores;
+        String [] nombreEquipos;
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2, 5, 5));
         director = new JLabel("Elegir director: ");
-        Tdirector = new JComboBox();
-        btnaceptarDirector = new JButton("Aceptar");
+        equipo = new JLabel("elige equipo");
+        COMBO_MODIFICAR_DIRECTOR = new JComboBox();
+        COMBO_MODIFICAR_EQUIPO = new JComboBox();
+        BOTON_MODIFICAR_DIRECTOR = new JButton("Aceptar");
+        
 
         panel.add(director);
-        panel.add(Tdirector);
-        panel.add(btnaceptarDirector);
+        panel.add(COMBO_MODIFICAR_DIRECTOR);
+        panel.add(BOTON_MODIFICAR_DIRECTOR);
 
         return panel;
     }

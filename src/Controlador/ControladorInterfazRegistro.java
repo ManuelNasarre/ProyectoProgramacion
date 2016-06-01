@@ -56,18 +56,22 @@ public class ControladorInterfazRegistro {
 
                             } else {
                                 if (!datosCorrectos()) {
+                                    JOptionPane.showMessageDialog(ip.getFRAME(), "los datos no son correctos", "error de registro", JOptionPane.ERROR_MESSAGE);
 
+                                } else {
+
+                                    String nombre = ip.getTNOMBRE().getText();
+                                    String apellido = ip.getTAPELLIDO().getText();
+                                    String pass = new String(ip.getTCONTRASENIA().getPassword());
+                                    String categoria = String.valueOf(ip.getTCATEGORIA().getSelectedItem());
+                                    Persona persona = new Persona(nombre, apellido, categoria, pass);
+                                    PersonaConexion.insertarPersona(persona);
                                 }
 
                             }
                         }
                     }
-                    String nombre = ip.getTNOMBRE().getText();
-                    String apellido = ip.getTAPELLIDO().getText();
-                    String pass = new String(ip.getTCONTRASENIA().getPassword());
-                    String categoria = String.valueOf(ip.getTCATEGORIA().getSelectedItem());
-                    Persona persona = new Persona(nombre, apellido, categoria, pass);
-                    PersonaConexion.insertarPersona(persona);
+
                 }
             }
 
@@ -115,6 +119,22 @@ public class ControladorInterfazRegistro {
 
     public boolean datosCorrectos() {
         boolean correctos = false;
+        String expresionNombre = "\\w{8,}";
+        String expresionApellido = "\\w{8,}";
+        String nombre = ip.getTNOMBRE().getText();
+        String apellido = ip.getTAPELLIDO().getText();
+
+        Pattern patronNombre = Pattern.compile(expresionNombre);
+        Pattern patronApellido = Pattern.compile(expresionApellido);
+
+        Matcher matNombre = patronNombre.matcher(nombre);
+        Matcher matApellido = patronApellido.matcher(apellido);
+
+        if (matNombre.matches() && matApellido.matches()) {
+            correctos = true;
+
+        }
+
         return correctos;
     }
 
