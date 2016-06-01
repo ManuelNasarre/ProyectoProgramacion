@@ -5,7 +5,7 @@
  */
 package Vista;
 
-import Modelo.Conexion;
+import Modelo.conexion;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +37,7 @@ public class InterfazPrincipal {
     private final String BD = "baseprogramacion";
     private final String USUARIO = "user";
     private final String CONTRASENIA = "1234";
-    private  Conexion db = new Conexion();
+    private  conexion db = new conexion();
 
     public InterfazPrincipal() {
         FRAME = new JFrame();

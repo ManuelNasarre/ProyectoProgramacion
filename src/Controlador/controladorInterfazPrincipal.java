@@ -55,7 +55,7 @@ public class controladorInterfazPrincipal {
                 }else{
                     if(PersonaConexion.obtenerCategoria(id).equalsIgnoreCase("Presidente")){
                         InterfazPresidente ipresi = new InterfazPresidente();
-                        ControladorInterfazPresidente cipresi = new ControladorInterfazPresidente();
+                        ControladorInterfazPresidente cipresi = new ControladorInterfazPresidente(ipresi);
                     }else{
                         InterfazDirector idirec = new InterfazDirector();
                         ControladorInterfazDirector cidirec = new ControladorInterfazDirector();

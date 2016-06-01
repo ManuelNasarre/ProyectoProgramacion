@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class ControladorInterfazRegistro {
 
     private Vista.InterfazRegistro ip;
-    private Conexion conexion = new Conexion();
+    private conexion conexion = new conexion();
 
     public ControladorInterfazRegistro(Vista.InterfazRegistro ip) {
         this.ip = ip;

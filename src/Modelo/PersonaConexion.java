@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class PersonaConexion {
 
-    static Conexion conection = new Conexion();
+    static conexion conection = new conexion();
 
     /**
      * Metodo que devuelve el id de una persona.
@@ -103,6 +103,34 @@ public class PersonaConexion {
         conection.cerraConexion();
     }
 
+    public static String[] obtenerPresidentes() {
+
+        CallableStatement cs;
+        ResultSet rs;
+        String[] presidentes = null;
+        int i = 0;
+        conection.abrirConexion();
+        try {
+            cs = conection.getConexion().prepareCall("{call obtenerPresidentes(?)}");
+            cs.setString(1, "Presidente");
+
+            rs = cs.executeQuery();
+            rs.last();
+            presidentes = new String[rs.getRow()];
+            rs.beforeFirst();
+            while (rs.next()) {
+                presidentes[i] = rs.getString(1);
+                i++;
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        conection.cerraConexion();
+        return presidentes;
+
+    }
+
     /**
      * Metodo que devuelve el nombre de todas las personas con categoria
      * Director Comercial
@@ -136,7 +164,12 @@ public class PersonaConexion {
         return directores;
 
     }
-    
+
+    /**
+     * Metodo que inserta un equipo en la base de datos.
+     *
+     * @param equipo que queremos añadir a la base de datos.
+     */
     public static void insertarEquipo(Equipo equipo) {
         CallableStatement cs;
         conection.abrirConexion();
@@ -145,7 +178,7 @@ public class PersonaConexion {
 
             cs = conection.getConexion().prepareCall("{call insertarEquipo(?,?,?,?,?)}");
             cs.setString(1, equipo.getNombre());
-            cs.setString(2, equipo.getTelefono());
+            cs.setInt(2, equipo.getTelefono());
             cs.setInt(3, equipo.getPresidente());
             cs.setInt(4, equipo.getDirectorMarketing());
             cs.setInt(5, equipo.getPrecio());
@@ -157,9 +190,9 @@ public class PersonaConexion {
         conection.cerraConexion();
     }
 
-    
     /**
      * Metodo que nos devuelve el nombre de todos los equipos.
+     *
      * @return Array de nombres de equipos.
      */
     public static String[] obtenerEquipos() {
@@ -186,6 +219,66 @@ public class PersonaConexion {
         }
         conection.cerraConexion();
         return equipos;
+
+    }
+
+    public static void eliminarEquipo(Equipo equipo) {
+
+        CallableStatement cs;
+        conection.abrirConexion();
+
+        try {
+
+            cs = conection.getConexion().prepareCall("{call eliminarEquipo(?)}");
+            cs.setString(1, equipo.getNombre());
+            cs.execute();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        conection.cerraConexion();
+    }
+
+    public static void modificarDirector(Persona persona, Equipo equipo) {
+
+        CallableStatement cs;
+        conection.abrirConexion();
+        int idDirector = PersonaConexion.obtenerIdPersona(persona);
+
+        try {
+
+            cs = conection.getConexion().prepareCall("{call modificarDirector(?,?)}");
+            cs.setInt(1, idDirector);
+            cs.setString(2, equipo.getNombre());
+            cs.execute();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        conection.cerraConexion();
+
+    }
+
+    public static int obtenerId(String nombre, String categoria) {
+
+        CallableStatement cs;
+        ResultSet rs;
+        int id = 0;
+        conection.abrirConexion();
+        try {
+            cs = conection.getConexion().prepareCall("{call obtenerIdPersona(?,?)}");
+            cs.setString(1, nombre);
+            cs.setString(2, categoria);
+            rs = cs.executeQuery();
+            rs.beforeFirst();
+            while (rs.next()) {
+                id = rs.getInt(1);
+
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        conection.cerraConexion();
+        return id;
 
     }
 }

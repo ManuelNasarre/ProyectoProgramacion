@@ -19,7 +19,7 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Conexion conection = new Conexion();
+        conexion conection = new conexion();
         
         
         InterfazPrincipal i = new InterfazPrincipal();

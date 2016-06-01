@@ -47,7 +47,7 @@ public class InterfazRegistro {
     private String bd = "BD";
     private String usuario = "user";
     private String contrasenia = "1234";
-    private Conexion db = new Conexion();
+    private conexion db = new conexion();
 
     public InterfazRegistro() {
         categorias[0] = "Presidente";
